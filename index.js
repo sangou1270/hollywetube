@@ -10,6 +10,13 @@ const handleHome = (req, res) => res.send("Hellooo");
 
 const handleProfile = (req, res) => res.send("profile");
 
+const betweenHome = (req, res, next) => {
+  console.log("between");
+  next();
+};
+
+app.use(betweenHome);
+
 app.get("/", handleHome);
 
 app.get("/profile", handleProfile);
