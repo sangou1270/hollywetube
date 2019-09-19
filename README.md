@@ -1,3 +1,3 @@
-# hollyWetube
+# HollyWetube
 
 Cloning Youtube
