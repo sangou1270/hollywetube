@@ -3,7 +3,7 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ _id: -1 }); //db에 존재하는 모든 정보를 가져온다 //-1로 주면 위아래 순서를 바꾼다.
+    const videos = await Video.find({}).sort({ _id: -1 }); // db에 존재하는 모든 정보를 가져온다 //-1로 주면 위아래 순서를 바꾼다.
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -11,10 +11,18 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" }
+    });
+  } catch (error) {
+    console.log(error);
+  }
   res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
