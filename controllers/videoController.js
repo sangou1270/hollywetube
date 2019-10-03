@@ -3,7 +3,7 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}); //db에 존재하는 모든 정보를 가져온다
+    const videos = await Video.find({}).sort({ _id: -1 }); //db에 존재하는 모든 정보를 가져온다 //-1로 주면 위아래 순서를 바꾼다.
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -80,6 +80,8 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     await Video.findByIdAndRemove({ _id: id });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
   res.redirect(routes.home);
 };
