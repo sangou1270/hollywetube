@@ -92,5 +92,5 @@ public
 .dynamodb/
 
 package-lock.json
-
 uploads
+static
